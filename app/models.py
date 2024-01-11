@@ -100,13 +100,14 @@ def add_criminal(first_name, last_name, date_of_birth, gender, nationality, addr
 @cli.command()
 @click.option('--id', prompt='Criminal ID', type=int, help='ID of the criminal to delete.')
 def delete_criminal(id):
-    criminal = session.query(Criminal).get(id)
+    criminal = session.get(Criminal, id)
     if criminal:
         session.delete(criminal)
         session.commit()
         click.echo(f"Criminal with ID {id} deleted successfully.")
     else:
         click.echo(f"No criminal found with ID {id}.")
+
 
 @cli.command()
 def list_criminals():
@@ -126,7 +127,7 @@ def list_criminals():
 @click.option('--description', prompt='Description', help='Description of the crime.')
 @click.option('--sentence', prompt='Sentence', help='Sentence for the crime.')
 def add_criminal_record(criminal_id, crime_type, crime_date, description, sentence):
-    criminal = session.query(Criminal).get(criminal_id)
+    criminal = session.get(Criminal, criminal_id)
     if criminal:
         criminal_record = CriminalRecord(
             criminal=criminal,
@@ -144,13 +145,14 @@ def add_criminal_record(criminal_id, crime_type, crime_date, description, senten
 @cli.command()
 @click.option('--id', prompt='Criminal Record ID', type=int, help='ID of the criminal record to delete.')
 def delete_criminal_record(id):
-    criminal_record = session.query(CriminalRecord).get(id)
+    criminal_record = session.get(CriminalRecord, id)
     if criminal_record:
         session.delete(criminal_record)
         session.commit()
         click.echo(f"Criminal Record with ID {id} deleted successfully.")
     else:
         click.echo(f"No criminal record found with ID {id}.")
+
 
 
 @cli.command()
@@ -184,13 +186,14 @@ def add_police_officer(first_name, last_name, badge_number, rank, station):
 @cli.command()
 @click.option('--id', prompt='Police Officer ID', type=int, help='ID of the police officer to delete.')
 def delete_police_officer(id):
-    police_officer = session.query(PoliceOfficer).get(id)
+    police_officer = session.get(PoliceOfficer, id)
     if police_officer:
         session.delete(police_officer)
         session.commit()
         click.echo(f"Police Officer with ID {id} deleted successfully.")
     else:
         click.echo(f"No police officer found with ID {id}.")
+
 
 @cli.command()
 def list_police_officers():
@@ -210,8 +213,8 @@ def list_police_officers():
 @click.option('--investigating-officer-id', prompt='Investigating Officer ID', type=int, help='ID of the investigating police officer.')
 @click.option('--criminal-record-id', prompt='Criminal Record ID', type=int, help='ID of the related criminal record.')
 def add_crime_scene(location, date, description, investigating_officer_id, criminal_record_id):
-    investigating_officer = session.query(PoliceOfficer).get(investigating_officer_id)
-    criminal_record = session.query(CriminalRecord).get(criminal_record_id)
+    investigating_officer = session.get(PoliceOfficer, investigating_officer_id)
+    criminal_record = session.get(CriminalRecord, criminal_record_id)
 
     if investigating_officer and criminal_record:
         crime_scene = CrimeScene(
@@ -227,10 +230,11 @@ def add_crime_scene(location, date, description, investigating_officer_id, crimi
     else:
         click.echo("Invalid Investigating Officer ID or Criminal Record ID. Please check and try again.")
 
+
 @cli.command()
 @click.option('--id', prompt='Crime Scene ID', type=int, help='ID of the crime scene to delete.')
 def delete_crime_scene(id):
-    crime_scene = session.query(CrimeScene).get(id)
+    crime_scene = session.get(CrimeScene, id)
     if crime_scene:
         session.delete(crime_scene)
         session.commit()
