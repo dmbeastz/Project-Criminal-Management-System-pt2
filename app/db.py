@@ -3,3 +3,7 @@ from models import Base
 
 engine = create_engine('sqlite:///criminals.db')
 Base.metadata.create_all(engine)
+
+
+
+
