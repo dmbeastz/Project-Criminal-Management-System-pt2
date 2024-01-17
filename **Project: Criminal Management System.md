@@ -1,5 +1,4 @@
- **Project: Criminal Management System Part 2**
-
+**Project: Criminal Management System Part 2**
 **Introduction:**
 This project builds upon the Criminal Management System developed in Part 1. It introduces additional features and functionalities to enhance the system's capabilities in managing criminal records and facilitating efficient law enforcement.
 
@@ -22,6 +21,16 @@ To run the application, follow these steps:
    python app/models.py
    ```
    This will start the application.
+
+**Usage**
+The application is a simple CLI (Command Line Interface) that allows users to interact with it through keyboard.
+After Running the application do this :
+- To add a new criminal, use this format in the terminal:
+   ```
+   python app/models.py  add-criminal
+   ```
+(Basically type or copy the command after you want to use)
+
 
 **Code Overview:**
 
